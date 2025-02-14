@@ -2,16 +2,13 @@
 
 	2025/02/05 @yanisaspic"
 
-source("./config/R_LIBS.R")
-.libPaths(R_LIBS$utils)
-
 suppressPackageStartupMessages({
-    library(aricode)
-    library(bluster)
-    library(scater)
-    library(scran)
-    library(scuttle)
-    library(SingleCellExperiment)})
+  library(aricode)
+  library(bluster)
+  library(scater)
+  library(scran)
+  library(scuttle)
+  library(SingleCellExperiment)})
 
 get_data.bluster <- function(expression.init) {
   #' Get a matrix usable for the functions of bluster.
@@ -83,7 +80,7 @@ get_clustering_metrics <- function(data, preds) {
   return(clustering_metrics)
 }
 
-get_benchmark_method <- function(data, clustering_method, method_label) {
+get_benchmark_method <- function(data, clustering_method, method_label, random_state=1) {
   #' Using computational as well as intrinsic and extrinsic clustering metrics, measure
   #' the performance of a clustering method on a dataset.
   #'
@@ -94,6 +91,7 @@ get_benchmark_method <- function(data, clustering_method, method_label) {
   #' @param clustering_method a function taking `expression.init` as input, and outputing
   #' a factor associating cells to their predicted clusters.
   #' @param method_label a character.
+  #' @param random_state a numeric.
   #'
   #' @return a data.frame with seven columns: `method`, `time (s)`,
   #' `peak_memory_usage (Mb)`, `ARI`, `NMI`, `Purity` and `SI`.
@@ -101,7 +99,7 @@ get_benchmark_method <- function(data, clustering_method, method_label) {
   get_memory_usage <- function(memory) {memory[[11]] + memory[[12]]}
   memory_usage.init <- get_memory_usage(gc(reset=TRUE))
   time.init <- Sys.time()
-  preds <- clustering_method(data$expression.init)
+  preds <- clustering_method(data$expression.init, random_state)
   time <- as.numeric(Sys.time() - time.init, units="secs")
   peak_memory_usage <- get_memory_usage(gc()) - memory_usage.init
   benchmark <- c("method"=method_label, "time (s)"=time,

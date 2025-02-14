@@ -6,8 +6,8 @@ CRAN <- "http://cran.us.r-project.org"
 if (!require("BiocManager")) install.packages("BiocManager", dependencies=TRUE)
 if (!require("devtools")) install.packages("devtools", dependencies=TRUE)
 
-# .libPaths(R_LIBS$scEVE) #______________ packageVersion("sceve") = 0.0.0.9000
-# if (!require("sceve")) devtools::install_github("yanisaspic/sceve.package")
+#______________ packageVersion("sceve") = 0.0.0.9000
+if (!require("sceve")) devtools::install_github("yanisaspic/sceve.package")
 
 #_________________ packageVersion("scEFSC") = 0.1.0
 if (!require("cidr")) devtools::install_github("VCCRI/CIDR")

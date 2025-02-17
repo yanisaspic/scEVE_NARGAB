@@ -7,6 +7,7 @@ if (!require("BiocManager")) install.packages("BiocManager", dependencies=TRUE)
 if (!require("devtools")) install.packages("devtools", dependencies=TRUE)
 
 #______________ packageVersion("sceve") = 0.0.0.9000
+if (!require("presto")) devtools::install_github('immunogenomics/presto')
 if (!require("sceve")) devtools::install_github("yanisaspic/sceve.package")
 
 #_________________ packageVersion("scEFSC") = 0.1.0
@@ -33,7 +34,13 @@ if (!require("scEFSC")) {
 	install.packages("./config/.tmp/scEFSC_0.1.0.tar.gz", type="source", repos=NULL)}
 
 #_____________ packageVersion("SAFEclustering") = 2.0
-if (!require("SAFEclustering")) devtools::install_github("yycunc/SAFEclustering")
+if (!require("SAFEclustering")) {
+	devtools::install_github("yycunc/SAFEclustering")
+	download.file("https://github.com/yycunc/SAFEclustering/raw/refs/heads/master/gpmetis_and_shmetis_for_Linux/gpmetis",
+				  "./config/dependencies/gpmetis")
+	download.file("https://github.com/yycunc/SAFEclustering/raw/refs/heads/master/gpmetis_and_shmetis_for_Linux/shmetis",
+				  "./config/dependencies/shmetis")
+}
 
 # ___________ packageVersion("SAMEclustering") = 1.10
 if (!require("SAMEclustering")) devtools::install_github("yycunc/SAMEclustering")
@@ -44,3 +51,6 @@ if (!require("howmany")) {
 				  "./config/.tmp/howmany_0.3-1.tar.gz")
 	install.packages("./config/.tmp/howmany_0.3-1.tar.gz", type="source", repos=NULL)}
 if (!require("clusterExperiment")) BiocManager::install("clusterExperiment")
+
+# _______________________________________________Misc
+if (!require("cancersea")) devtools::install_github("camlab-bioml/cancersea")

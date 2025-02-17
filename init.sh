@@ -6,5 +6,7 @@
 
 # chmod +x ./datasets/download_datasets.sh
 # ./datasets/download_datasets.sh
-python3 ./datasets/setup_datasets.py
-# Rscript ./config/install_packages.R
+# python3 ./datasets/setup_datasets.py
+Rscript ./config/install_packages.R
+chmod +x ./config/dependencies/gpmetis
+chmod +x ./config/dependencies/shmetis

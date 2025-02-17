@@ -114,7 +114,7 @@ use_SHARP.benchmark <- function(expression, random_state) {
   #'
   expression.selected <- get_expression.selected(expression)
   results <- SHARP::SHARP(scExp=expression.selected, exp.type="count",
-                          n.cores = 2, rN.seed=random_state)
+                          n.cores = 1, rN.seed=random_state)
   predictions <- get_formatted_predictions(cells=colnames(expression.selected),
                                            predictions=results$pred_clusters)
   return(predictions)

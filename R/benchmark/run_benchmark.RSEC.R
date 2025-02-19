@@ -40,4 +40,4 @@ get_benchmark_rsec <- function(data, random_state=1) {
 }
 
 benchmark <- get_benchmark_rsec(data)
-write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/RSEC.csv"), row.names=TRUE)
+write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/RSEC.csv"), row.names=FALSE)

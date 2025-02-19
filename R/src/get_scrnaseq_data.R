@@ -81,6 +81,7 @@ get_real_data.TMExplorer <- function(dataset) {
   ground_truth <- ground_truth[!ground_truth %in% throwaway_labels]
   expression.init <- SingleCellExperiment::counts(data.TMExplorer)
   expression.init <- expression.init[, names(ground_truth)]
+
   data <- list(expression.init=expression.init, ground_truth=ground_truth)
   return(data)
 }
@@ -136,6 +137,10 @@ get_scrnaseq_data <- function(dataset) {
   else if (dataset %in% c("Li_HumCRC_a", "Baron_MouPan_1", "Baron_MouPan_2", "Baron_HumPan_4", "Tasic_MouBra",
                      "Baron_HumPan_2", "Baron_HumPan_1", "Baron_HumPan_3")) {data <- get_real_data.local(dataset)}
   else {data <- get_synthetic_data(dataset)}
+  
   rownames(data$expression.init) <- gsub("_", "+", rownames(data$expression.init))
+  cell_ids <- get_cell_ids(data$ground_truth)
+  names(data$ground_truth) <- cell_ids
+  colnames(data$expression.init) <- cell_ids
   return(data)
 }

@@ -10,4 +10,4 @@ dataset <- commandArgs(trailingOnly=TRUE)[[1]]
 data <- get_scrnaseq_data(dataset)
 
 benchmark <- get_benchmark_method(data, use_SAFE.benchmark, "SAFE")
-write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/SAFE.csv"), row.names=TRUE)
+write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/SAFE.csv"), row.names=FALSE)

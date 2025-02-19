@@ -336,14 +336,3 @@ use_RSEC.benchmark <- function(expression.init, random_state) {
   predictions <- get_formatted_predictions(colnames(expression.init), primaryCluster(output))
   return(predictions)
 }
-
-use_scEFSC.benchmark <- function(expression.init, random_state) {
-  #' Predict clusters with the scEFSC algorithm.
-  #'
-  #' @param expression.init a scRNA-seq dataset of raw count expression, without selected genes.
-  #' Its rows are genes and its columns are cells.
-  #' @param random_state a numeric.
-  #' 
-  #' @return a named factor that associates each cell to their cluster prediction.
-  #' 
-}

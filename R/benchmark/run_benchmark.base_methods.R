@@ -18,4 +18,4 @@ base_methods <- c(
 f <- function(method_label) {get_benchmark_method(data, base_methods[[method_label]], method_label)}
 benchmarks <- lapply(X=names(base_methods), FUN=f)
 benchmark <- do.call(rbind, benchmarks)
-write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/base_methods.csv"), row.names=TRUE)
+write.csv(benchmark, glue::glue("./results/benchmarks/{dataset}/base_methods.csv"), row.names=FALSE)

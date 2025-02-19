@@ -9,6 +9,6 @@ dataset <- commandArgs(trailingOnly=TRUE)[[1]]
 data <- get_scrnaseq_data(dataset)
 
 params <- sceve::get_default_parameters()
-params$figures_path <- "./results/analyses"
-params$sheets_path <- glue::glue("./results/analyses/{dataset}.xlsx")
-sceve(data, params, figures=TRUE, sheets=TRUE)
+params$figures_path <- glue::glue("./results/analyses/{dataset}")
+params$sheets_path <- glue::glue("./results/analyses/{dataset}/{dataset}.xlsx")
+sceve(data$expression.init, params, figures=TRUE, sheets=TRUE)

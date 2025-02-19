@@ -4,9 +4,15 @@
 #
 #	2025/02/13 @yanisaspic
 
+#_______________________________scRNA-seq datasets
 # chmod +x ./datasets/download_datasets.sh
 # ./datasets/download_datasets.sh
 # python3 ./datasets/setup_datasets.py
-Rscript ./config/install_packages.R
-chmod +x ./config/dependencies/gpmetis
-chmod +x ./config/dependencies/shmetis
+
+#_______________________________ensemble algorithms
+# Rscript ./config/install_packages.R
+# chmod +x ./config/dependencies/gpmetis
+# chmod +x ./config/dependencies/shmetis
+
+#_______________________________SAFE virtual environment
+singularity build ./config/dependencies/SAFE.sif ./config/dependencies/SAFE.def

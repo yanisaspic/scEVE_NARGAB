@@ -6,6 +6,7 @@
 #SBATCH --exclude=cpu-node-17,cpu-node-91
 
 module load r/4.3.1
+module load singularity
 
 DATASETS=("Li_HumCRC_a" \
 "Li_HumCRC_b" \
@@ -38,4 +39,4 @@ echo "SLURM_SUBMIT_DIR:" $SLURM_SUBMIT_DIR
 echo "SLURM_JOB_NODELIST:" $SLURM_JOB_NODELIST
 echo "#############################" 
 
-Rscript ./R/benchmark/run_benchmark.SAFE.R $dataset
+singularity run ./config/dependencies/SAFE.sif "./R/benchmark/run_benchmark.SAFE.R" $dataset

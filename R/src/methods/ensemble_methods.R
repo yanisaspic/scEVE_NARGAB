@@ -37,7 +37,7 @@ do_SC3.SAxE <- function(expression.init, random_state) {
   else {
     data <- SC3::sc3(data, ks=optimal_K, biology=FALSE, gene_filter=gene_filter, svm_max = svm_num_cells,
                      svm_num_cells=svm_num_cells, n_cores=1, rand_seed=random_state)
-    data <- SC3::sc3_run_svm(exp_cell_exprs, ks=optimal_K)}
+    data <- SC3::sc3_run_svm(data, ks=optimal_K)}
   
   # report results
   tmp <- SummarizedExperiment::colData(data)
@@ -221,7 +221,7 @@ get_base_clusters.SAxE <- function(expression.init, random_state, clustering_met
   #' @param expression.init a scRNA-seq dataset of raw count expression, without selected genes.
   #' Its rows are genes and its columns are cells.
   #' @param random_state a numeric.
-  #' @param clustering_methods a vector of valid clustering names: `CIDR`, `SC3`, `Seurat` `SIMR` or `tSNE_kMeans`.
+  #' @param clustering_methods a vector of valid clustering names: `CIDR`, `SC3`, `Seurat` `SIMLR` or `tSNE_kMeans`.
   #' @param diverse a boolean that indicates if the most divergent base clusters should be selected (`SAME` algorithm).
   #' 
   #' @return a named list (`base_clusters`), with a named vector associating cells to their predicted cluster.

@@ -18,10 +18,10 @@ DATASETS=("Li_HumCRC_a" \
 "Darmanis_HumGBM" \
 "Tasic_MouBra" \
 "JerbyArnon_HumMLM" \
-"Peng_HumPDAC" \
 "Gillen_HumEPN" \
 "VanGalen_HumAML" \
-"Lambrechts_HumNSCLC")
+"Lambrechts_HumNSCLC" \
+"Peng_HumPDAC")
 
 dataset=${DATASETS[$SLURM_ARRAY_TASK_ID]}
 mkdir ./results/benchmarks/${dataset}

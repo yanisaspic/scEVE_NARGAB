@@ -3,8 +3,8 @@
 	2025/02/17 @yanisaspic"
 
 CRAN <- "http://cran.us.r-project.org"
-if (!require("BiocManager")) install.packages("BiocManager", dependencies=TRUE)
-if (!require("devtools")) install.packages("devtools", dependencies=TRUE)
+if (!require("BiocManager")) install.packages("BiocManager", dependencies=TRUE, repos=CRAN)
+if (!require("devtools")) install.packages("devtools", dependencies=TRUE, repos=CRAN)
 
 #______________ packageVersion("sceve") = 0.0.0.9000
 if (!require("presto")) devtools::install_github('immunogenomics/presto')
@@ -30,3 +30,5 @@ if (!require("clusterExperiment")) BiocManager::install("clusterExperiment")
 
 # _______________________________________________Misc
 if (!require("cancersea")) devtools::install_github("camlab-bioml/cancersea")
+if (!require("pals")) install.packages("pals", dependencies=TRUE, repos=CRAN)
+if (!require("SPARSim")) devtools::install_gitlab("sysbiobig/sparsim")

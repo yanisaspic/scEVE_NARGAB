@@ -3,7 +3,7 @@
 	2025/02/14 @yanisaspic"
 
 source("./R/src/get_scrnaseq_data.R")
-suppressPackageStartupMessages(library("sceve"))
+suppressPackageStartupMessages(library(sceve))
 
 dataset <- commandArgs(trailingOnly=TRUE)[[1]]
 data <- get_scrnaseq_data(dataset)

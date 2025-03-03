@@ -163,12 +163,13 @@ get_barplot.sizes <- function(tree_data, records.cells) {
   return(plot)
 }
 
-get_summary_plot <- function(records) {
+get_summary_plot <- function(records, widths=c(8, 4, 4)) {
   #' Get a composite plot summarizing a scEVE clustering analysis on a dataset with a ground truth.
   #' The composite reports the relationships, the cell composition and the size of every leaf cluster
   #' predicted by scEVE.
   #' 
   #' @param records a named list, with four data.frames: `cells`, `markers`, `meta` and `methods`.
+  #' @param widths a vector of numeric.
   #'
   #' @return a composite plot.
   #' 
@@ -191,8 +192,10 @@ get_summary_plot <- function(records) {
   composite_plot <- tree_plot +
     remove_y_axis(barplot.composition) +
     remove_y_axis(barplot.sizes) +
-    patchwork::plot_layout(widths=c(12, 3.25, 3.25), guides="collect") &
+    patchwork::plot_layout(widths=widths, guides="collect") &
     ggplot2::theme(legend.position="bottom")
   
+  composite_plot <- composite_plot +
+      patchwork::plot_annotation(tag_levels="a")
   return(composite_plot)
 }

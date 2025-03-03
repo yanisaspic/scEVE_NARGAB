@@ -268,7 +268,7 @@ get_synthetic_data <- function(dataset) {
 get_scrnaseq_data <- function(dataset) {
   #' Load a scRNA-seq dataset of raw count expression.
   #'
-  #' @param dataset.id either the name of a real scRNA-seq dataset, or a numeric ranging from 1 to 600 (synthetic data).
+  #' @param dataset either the name of a real scRNA-seq dataset, or a numeric ranging from 1 to 600 (synthetic data).
   #'
   #' @return a named list with two elements: `expression.init` and `ground_truth`.
   #' `expression.init` is a scRNA-seq dataset of raw count expression, without selected genes.

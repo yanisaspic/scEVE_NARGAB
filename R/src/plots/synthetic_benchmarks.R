@@ -36,7 +36,7 @@ get_lineplots <- function(benchmark, metric, draw_legend) {
   tmp <- benchmark %>%
     dplyr::group_by(k, balanced_clusters, independent_clusters, method) %>%
     dplyr::summarise(y = mean(.data[[metric]], na.rm=TRUE),
-                     se = stats::sd(.data[[metric]], na.rm=TRUE),
+                     se = stats::sd(.data[[metric]] / sqrt(dplyr::n()), na.rm=TRUE),
                      .groups = "drop")
   
   # this section is dedicated to aesthetics ____________________________________

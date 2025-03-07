@@ -1,6 +1,6 @@
 "Function called to load scRNA-seq datasets.
 
-	2025/02/13 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 suppressPackageStartupMessages({
   library(glue)
@@ -61,10 +61,10 @@ get_cell_ids <- function(labels) {
   return(cell_ids)
 }
 
-get_real_data.TMExplorer <- function(dataset) {
+get_real_data.TMExplorer <- function(dataset_label) {
   #' Get a data.frame and the ground truth of a dataset loaded with TMExplorer.
   #'
-  #' @param dataset one of `Li_HumCRC_b`, `Darmanis_HumGBM`, `JerbyArnon_HumMLM`,
+  #' @param dataset_label one of `Li_HumCRC_b`, `Darmanis_HumGBM`, `JerbyArnon_HumMLM`,
   #' `Gillen_HumEPN`, `VanGalen_HumAML`, `Lambrechts_HumNSCLC` or `Peng_HumPDAC`.
   #' (cf. `get_real_datasets_info()`)
   #'
@@ -72,7 +72,7 @@ get_real_data.TMExplorer <- function(dataset) {
   #' Its rows are genes and its columns are cells.
   #'
   real_datasets_info <- get_real_datasets_info()
-  accession_number <- real_datasets_info[dataset, "accession_number"]
+  accession_number <- real_datasets_info[dataset_label, "accession_number"]
   data.TMExplorer <- TMExplorer::queryTME(accession_number)[[1]]
   
   if (accession_number == "GSE84465") {data.TMExplorer <- head(data.TMExplorer, -6)}
@@ -82,33 +82,33 @@ get_real_data.TMExplorer <- function(dataset) {
   predictions <- SummarizedExperiment::colData(data.TMExplorer)
   ground_truth <- stats::setNames(predictions$label, rownames(predictions))
   ground_truth <- ground_truth[!ground_truth %in% throwaway_labels]
-  expression.init <- SingleCellExperiment::counts(data.TMExplorer)
-  expression.init <- expression.init[, names(ground_truth)]
+  dataset <- SingleCellExperiment::counts(data.TMExplorer)
+  dataset <- dataset[, names(ground_truth)]
 
-  data <- list(expression.init=expression.init, ground_truth=ground_truth)
+  data <- list(dataset=dataset, ground_truth=ground_truth)
   return(data)
 }
 
-get_real_data.local <- function(dataset) {
+get_real_data.local <- function(dataset_label) {
   #' Get a data.frame and the ground truth of a dataset loaded locally.
   #'
   #' Run ./datasets/download_datasets.sh and ./datasets/setup_datasets.py first.
   #'
-  #' @param dataset one of `Li_HumCRC_a`, `Baron_MouPan_1`, `Baron_MouPan_2`, `Baron_HumPan_4`,
+  #' @param dataset_label one of `Li_HumCRC_a`, `Baron_MouPan_1`, `Baron_MouPan_2`, `Baron_HumPan_4`,
   #' `Tasic_MouBra`, `Baron_HumPan_2`, `Baron_HumPan_1` or `Baron_HumPan_3`.
   #' (cf. `get_real_datasets_info()`)
   #'
   #' @return a scRNA-seq dataset of raw count expression, without selected genes.
   #' Its rows are genes and its columns are cells.
   #'
-  expression.init <- read.csv(glue::glue("./datasets/scrna/{dataset}.csv"), row.names=1)
+  dataset <- read.csv(glue::glue("./datasets/scrna/{dataset_label}.csv"), row.names=1)
   get_label <- function(cell_id) {
     tmp <- strsplit(cell_id, split="_")[[1]]
     label <- paste(head(tmp, -1), collapse="_")
     return(label)}
-  labels <- sapply(X=colnames(expression.init), FUN=get_label)
-  ground_truth <- stats::setNames(labels, colnames(expression.init))
-  data <- list(expression.init=expression.init, ground_truth=ground_truth)
+  labels <- sapply(X=colnames(dataset), FUN=get_label)
+  ground_truth <- stats::setNames(labels, colnames(dataset))
+  data <- list(dataset=dataset, ground_truth=ground_truth)
   return(data)
 }
 
@@ -234,56 +234,56 @@ simulate_scrnaseq_data <- function(k, balanced_clusters, independent_clusters, r
   else {cluster_params <- get_related_clusters_params(cluster_sizes, init_params)}
   
   tmp <- SPARSim::SPARSim_simulation(cluster_params)
-  expression.init <- as.data.frame(tmp$count_matrix)
-  expression.init <- expression.init[, sample(colnames(expression.init))]
-  return(expression.init)
+  dataset <- as.data.frame(tmp$count_matrix)
+  dataset <- dataset[, sample(colnames(dataset))]
+  return(dataset)
 }
 
-get_synthetic_data <- function(dataset) {
+get_synthetic_data <- function(dataset_label) {
   #' Load a synthetic scRNA-seq dataset of raw count expression.
   #'
-  #' @param dataset a numeric ranging from 1 to 360. Each numeric is associated to a synthetic
+  #' @param dataset_label a numeric ranging from 1 to 360. Each numeric is associated to a synthetic
   #' dataset with specific properties.
   #'
-  #' @return a named list with two elements: `expression.init` and `ground_truth`.
-  #' `expression.init` is a scRNA-seq dataset of raw count expression, without selected genes.
+  #' @return a named list with two elements: `dataset` and `ground_truth`.
+  #' `dataset` is a scRNA-seq dataset of raw count expression, without selected genes.
   #' Its rows are genes and its columns are cells.
   #' `ground_truth` is a named factor associating cells to their cluster annotations.
   #'
   data("PBMC_10X_param_preset")
   init_params <- PBMC_10X_param_preset[[1]]
   synthetic_datasets_info <- get_synthetic_datasets_info()
-  tmp <- synthetic_datasets_info[dataset, ]
+  tmp <- synthetic_datasets_info[dataset_label, ]
   
-  expression.init <- simulate_scrnaseq_data(tmp$k, tmp$balanced_clusters, tmp$independent_clusters, tmp$random_state,
+  dataset <- simulate_scrnaseq_data(tmp$k, tmp$balanced_clusters, tmp$independent_clusters, tmp$random_state,
                                             init_params, dataset_size=10000)
   get_cell_type <- function(cell_id) {strsplit(cell_id, split="_")[[1]][1]}
-  ground_truth <- sapply(X=colnames(expression.init), FUN=get_cell_type)
-  data <- list(expression.init=expression.init, ground_truth=ground_truth)
+  ground_truth <- sapply(X=colnames(dataset), FUN=get_cell_type)
+  data <- list(dataset=dataset, ground_truth=ground_truth)
   return(data)
 }
 
 # ___________________________________________________________________________________
 
-get_scrnaseq_data <- function(dataset) {
+get_scrnaseq_data <- function(dataset_label) {
   #' Load a scRNA-seq dataset of raw count expression.
   #'
-  #' @param dataset either the name of a real scRNA-seq dataset, or a numeric ranging from 1 to 600 (synthetic data).
+  #' @param dataset_label either the name of a real scRNA-seq dataset, or a numeric ranging from 1 to 600 (synthetic data).
   #'
-  #' @return a named list with two elements: `expression.init` and `ground_truth`.
-  #' `expression.init` is a scRNA-seq dataset of raw count expression, without selected genes.
+  #' @return a named list with two elements: `dataset` and `ground_truth`.
+  #' `dataset` is a scRNA-seq dataset of raw count expression, without selected genes.
   #' Its rows are genes and its columns are cells.
   #' `ground_truth` is a named factor associating cells to their cluster annotations.
   #'
-  if (dataset %in% c("Li_HumCRC_b", "Darmanis_HumGBM", "JerbyArnon_HumMLM", "Gillen_HumEPN",
-                     "VanGalen_HumAML", "Lambrechts_HumNSCLC", "Peng_HumPDAC")) {data <- get_real_data.TMExplorer(dataset)}
-  else if (dataset %in% c("Li_HumCRC_a", "Baron_MouPan_1", "Baron_MouPan_2", "Baron_HumPan_4", "Tasic_MouBra",
-                     "Baron_HumPan_2", "Baron_HumPan_1", "Baron_HumPan_3")) {data <- get_real_data.local(dataset)}
-  else {data <- get_synthetic_data(dataset)}
+  if (dataset_label %in% c("Li_HumCRC_b", "Darmanis_HumGBM", "JerbyArnon_HumMLM", "Gillen_HumEPN",
+                     "VanGalen_HumAML", "Lambrechts_HumNSCLC", "Peng_HumPDAC")) {data <- get_real_data.TMExplorer(dataset_label)}
+  else if (dataset_label %in% c("Li_HumCRC_a", "Baron_MouPan_1", "Baron_MouPan_2", "Baron_HumPan_4", "Tasic_MouBra",
+                     "Baron_HumPan_2", "Baron_HumPan_1", "Baron_HumPan_3")) {data <- get_real_data.local(dataset_label)}
+  else {data <- get_synthetic_data(dataset_label)}
   
-  rownames(data$expression.init) <- gsub("_", "+", rownames(data$expression.init))
+  rownames(data$dataset) <- gsub("_", "+", rownames(data$dataset))
   cell_ids <- get_cell_ids(data$ground_truth)
   names(data$ground_truth) <- cell_ids
-  colnames(data$expression.init) <- cell_ids
+  colnames(data$dataset) <- cell_ids
   return(data)
 }

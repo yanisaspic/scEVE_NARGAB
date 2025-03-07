@@ -1,14 +1,14 @@
 "Run this script to install every R packages.
 
-	2025/02/17 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 CRAN <- "http://cran.us.r-project.org"
 if (!require("BiocManager")) install.packages("BiocManager", dependencies=TRUE, repos=CRAN)
 if (!require("devtools")) install.packages("devtools", dependencies=TRUE, repos=CRAN)
 
-#______________ packageVersion("sceve") = 0.0.0.9000
+#______________ packageVersion("feve") = 1.0
 if (!require("presto")) devtools::install_github('immunogenomics/presto')
-if (!require("sceve")) devtools::install_github("yanisaspic/sceve.package")
+if (!require("feve")) devtools::install_github("yanisaspic/feve")
 
 #_____________ packageVersion("SAFEclustering") = 2.0
 if (!require("SAFEclustering")) {

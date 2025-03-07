@@ -1,6 +1,6 @@
 "Functions called to benchmark clustering methods.
 
-	2025/02/05 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 suppressPackageStartupMessages({
   library(aricode)
@@ -13,7 +13,7 @@ suppressPackageStartupMessages({
 get_data.bluster <- function(expression.init) {
   #' Get a matrix usable for the functions of bluster.
   #'
-  #' @param a scRNA-seq dataset of raw count expression, without selected genes.
+  #' @param expression.init a scRNA-seq dataset of raw count expression, without selected genes.
   #' Its rows are genes and its columns are cells.
   #'
   #' @return an object associating selected genes and cells to their reduced dimensions.
@@ -39,16 +39,16 @@ get_clustering_metrics.intrinsic <- function(expression.init, preds) {
   #' Its rows are genes and its columns are cells.
   #' @param preds a named factor associating cells to their predicted clusters.
   #'
-  #' @return a named vector of with two names: `Purity` and `SI`.
+  #' @return a named vector of with two names: `nPurity` and `SI`.
   #'
   #' @import bluster
   #'
   n_clusters_predicted <- length(unique(preds))
-  if (n_clusters_predicted < 2) {return(c("Purity"=NA, "SI"=NA))}
+  if (n_clusters_predicted < 2) {return(c("nPurity"=NA, "SI"=NA))}
   data <- get_data.bluster(expression.init)
   neighborhood_purity <- bluster::neighborPurity(data, preds)
   silhouette_index <- bluster::approxSilhouette(data, preds)
-  clustering_metrics.intrinsic <- c("Purity"=mean(neighborhood_purity$purity),
+  clustering_metrics.intrinsic <- c("nPurity"=mean(neighborhood_purity$purity),
                                     "SI"=mean(silhouette_index$width))
   return(clustering_metrics.intrinsic)
 }
@@ -58,7 +58,7 @@ get_clustering_metrics <- function(data, preds) {
   #' Extrinsic metrics compare cluster predictions to the cell annotations of the dataset.
   #' Intrinsic metrics compare the gene expression of cells in and out of their clusters.
   #' The `ARI` and the `NMI` are extrinsic metrics.
-  #' The `Purity` and the `SI` are intrinsic metrics.
+  #' The `nPurity` and the `SI` are intrinsic metrics.
   #' For every metric, higher is better and the maximum value is 1.
   #'
   #' @param data a named list with two elements: `expression.init` and `ground_truth`.
@@ -67,11 +67,11 @@ get_clustering_metrics <- function(data, preds) {
   #' `ground_truth` is a named factor associating cells to their cluster annotations.
   #' @param preds a named factor associating cells to their predicted clusters.
   #'
-  #' @return a named vector with four names: `ARI`, `NMI`, `Purity` and `SI`.
+  #' @return a named vector with four names: `ARI`, `NMI`, `nPurity` and `SI`.
   #'
   #' @import aricode
   #'
-  if (length(preds) < 2) {return(c("ARI"=NA, "NMI"=NA, "Purity"=NA, "SI"=NA))}
+  if (length(preds) < 2) {return(c("ARI"=NA, "NMI"=NA, "nPurity"=NA, "SI"=NA))}
   ground_truth <- data$ground_truth[names(preds)]
   expression.init <- data$expression.init[, names(preds)]
   clustering_metrics <- c("ARI"=aricode::ARI(ground_truth, preds),
@@ -94,7 +94,7 @@ get_benchmark_method <- function(data, clustering_method, method_label, random_s
   #' @param random_state a numeric.
   #'
   #' @return a data.frame with seven columns: `method`, `time (s)`,
-  #' `peak_memory_usage (Mb)`, `ARI`, `NMI`, `Purity` and `SI`.
+  #' `peak_memory_usage (Mb)`, `ARI`, `NMI`, `nPurity` and `SI`.
   #'
   get_memory_usage <- function(memory) {memory[[11]] + memory[[12]]}
   memory_usage.init <- get_memory_usage(gc(reset=TRUE))

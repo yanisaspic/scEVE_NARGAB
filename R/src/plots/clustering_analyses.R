@@ -1,6 +1,6 @@
 "Functions called to draw the summary figure of a clustering analysis.
 
-	2025/02/24 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 source("./R/src/plots/utils.R")
 suppressPackageStartupMessages({
@@ -75,7 +75,7 @@ get_cluster_compositions <- function(records.cells) {
     return(ground_truth)}
   
   get_composition.cluster <- function(cluster) {
-    cells_of_cluster <- sceve::get_cells_of_population(cluster, records.cells)
+    cells_of_cluster <- feve::get_samples_of_population(cluster, records.cells)
     labels <- sapply(X=cells_of_cluster, FUN=get_ground_truth)
     tmp <- table(labels)
     composition.cluster <- data.frame(cluster=cluster, cell_type=names(tmp), n=as.numeric(tmp))
@@ -126,7 +126,7 @@ get_cluster_sizes <- function(records.cells) {
   #' @return a data.frame with two columns: `cluster` and `n`.
   #' 
   get_size.cluster <- function(cluster) {
-    cells_of_cluster <- sceve::get_cells_of_population(cluster, records.cells)
+    cells_of_cluster <- feve::get_samples_of_population(cluster, records.cells)
     size.cluster <- data.frame(cluster=cluster, n=length(cells_of_cluster))
     return(size.cluster)}
   

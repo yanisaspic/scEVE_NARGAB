@@ -1,6 +1,6 @@
 "Functions called to get tables of results.
 
-	2025/03/02 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 suppressPackageStartupMessages({
   library(cancersea)
@@ -107,6 +107,7 @@ get_contributions_data <- function(analyses) {
   rownames(contributions_statistics) <- c("average", "standard_error")
   
   contributions_data <- rbind(contributions_data, contributions_statistics) %>%
+    dplyr::mutate(dplyr::across(dplyr::everything(), \(x) 100*x)) %>%
     dplyr::mutate(dplyr::across(dplyr::everything(), \(x) round(x, digits=2)))
   return(contributions_data)
 }
@@ -115,7 +116,7 @@ get_leftout_data <- function(benchmarks) {
   #' Get a data.frame associating RSEC and scEVE to their missing cells.
   #' 
   #' @param benchmarks a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `Purity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
   #'
   #' @return a data.frame with three columns: `method`, `dataset` and `missing_cells`.
   #' 

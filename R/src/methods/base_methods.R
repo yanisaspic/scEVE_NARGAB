@@ -1,6 +1,6 @@
 "Base clustering methods used in the scEVE framework.
 
-	2025/02/05 @yanisaspic"
+	2025/03/07 @yanisaspic"
 
 suppressPackageStartupMessages({
   library(densitycut)

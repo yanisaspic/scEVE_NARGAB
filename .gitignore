@@ -1,0 +1,5 @@
+renv*
+*.out
+*.Rprofile
+*.txt
+*.pdf

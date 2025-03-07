@@ -20,7 +20,7 @@ get_benchmark_rsec <- function(data, random_state=1) {
   #' @param random_state a numeric.
   #'
   #' @return a data.frame with eight columns: `method`, `time (s)`,
-  #' `peak_memory_usage (Mb)`, `ARI`, `NMI`, `nPurity`, `SI` and `n_cells`.
+  #' `peak_memory_usage (Mb)`, `ARI`, `NMI`, `nPurity`, `SI` and `n_samples`.
   #'
   get_memory_usage <- function(memory) {memory[[11]] + memory[[12]]}
   memory_usage.init <- get_memory_usage(gc(reset=TRUE))
@@ -30,10 +30,10 @@ get_benchmark_rsec <- function(data, random_state=1) {
   peak_memory_usage <- get_memory_usage(gc()) - memory_usage.init
   
   benchmark <- c("method"="RSEC", "time (s)"=time, "peak_memory_usage (Mb)"=peak_memory_usage,
-                 get_clustering_metrics(data, predictions), "n_cells"=length(predictions))
+                 get_clustering_metrics(data, predictions), "n_samples"=length(predictions))
   benchmark.star <- c("method"="RSEC*", "time (s)"=time, "peak_memory_usage (Mb)"=peak_memory_usage,
                       get_clustering_metrics(data, predictions[predictions != -1]),
-                      "n_cells"=length(predictions[predictions != -1]))
+                      "n_samples"=length(predictions[predictions != -1]))
   
   benchmark_rsec <- as.data.frame(rbind(benchmark, benchmark.star))
   return(benchmark_rsec)

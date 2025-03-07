@@ -1,6 +1,6 @@
 "Functions called to draw the results of a benchmark conducted on real datasets.
 
-	2025/03/07 @yanisaspic"
+	2025/03/ @yanisaspic"
 
 source("./R/src/plots/utils.R")
 suppressPackageStartupMessages({
@@ -16,7 +16,7 @@ get_fontfaces <- function(benchmark, metric, higher_is_better) {
   #' Get a vector associating the best values on every dataset to a bold fontface.
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metric a character.
   #' @param higher_is_better a boolean indicating if higher values are better for a given metric.
   #'
@@ -36,7 +36,7 @@ get_gradient <- function(benchmark, metric, higher_is_better) {
   #' Get a gradient associating three colors to the best, the worst and the median values of a heatmap.
   #' 
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metric a character.
   #' @param higher_is_better a boolean indicating if higher values are better for a given metric.
   #' 
@@ -60,7 +60,7 @@ get_heatmap <- function(benchmark, metric, higher_is_better) {
   #' The value of an input metric is reported in the cells of the heatmap.
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metric a character.
   #' @param higher_is_better a boolean indicating if higher values are better for a given metric.
   #' 
@@ -95,7 +95,7 @@ get_boxplots <- function(benchmark, metric, draw_legend) {
   #' Get boxplots associating clustering methods (on the x-axis) to clustering performances (on the y-axis).
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metric a character.
   #' @param draw_legend a boolean indicating if the plot legend should be drawn.
   #' 
@@ -128,7 +128,7 @@ get_boxplot_legend <- function(benchmark) {
   #' Get a boxplot legend stored in a plot.
   #' 
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' 
   #' @return a plot.
   #' 
@@ -144,7 +144,7 @@ get_subplot <- function(benchmark, metric, higher_is_better, draw_legend) {
   #' Get a composite plot associating a heatmap and a boxplot.
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metric a character.
   #' @param higher_is_better a boolean indicating if higher values are better for a given metric.
   #' @param draw_legend a boolean indicating if the plot legend should be drawn.
@@ -161,7 +161,7 @@ get_plot.clustering_performance.real_benchmark <- function(benchmark, metrics) {
   #' Get a composite plot reporting an extrinsic and an intrinsic clustering metric, respectively.
   #' 
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' @param metrics a vector of two metrics. 
   #' 
   #' @return a plot.
@@ -178,7 +178,7 @@ get_plot.computational_performance.real_benchmark <- function(benchmark) {
   #' Get a composite plot reporting the time and peak memory usage, respectively.
   #' 
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' 
   #' @return a plot.
   #' 
@@ -194,7 +194,7 @@ get_plots.real_benchmark <- function(benchmark) {
   #' Get plots summarizing the benchmark conducted on real datasets.
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' 
   #' @return a named list, with three names: `main_clustering_performance`, `supplementary_clustering_performance`
   #' and `computational_performance`.

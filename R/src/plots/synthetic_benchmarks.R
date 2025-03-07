@@ -25,7 +25,7 @@ get_lineplots <- function(benchmark, metric, draw_legend) {
   #' Get lineplots associating clustering methods to their performance (y-axis) on multiple datasets (x-axis)
   #' 
   #' @param benchmark a data.frame with fourteen columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset`, `is_real`, `k`, `balanced_clusters`,
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset`, `is_real`, `k`, `balanced_clusters`,
   #' `independent_clusters` and `random_state`.
   #' @param metrics a character
   #' @param draw_legend a boolean indicating if the plot legend should be drawn.
@@ -85,7 +85,7 @@ get_lineplot_legend <- function(benchmark, metric) {
   #' Get a lineplot legend stored in a plot.
   #' 
   #' @param benchmark a data.frame with fourteen columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset`, `is_real`, `k`, `balanced_clusters`,
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset`, `is_real`, `k`, `balanced_clusters`,
   #' `independent_clusters` and `random_state`.
   #' 
   #' @return a plot.
@@ -101,7 +101,7 @@ get_lineplot.synthetic_benchmark <- function(benchmark, metrics) {
   #' Get a composite plot reporting an extrinsic and an intrinsic clustering metric, respectively.
   #' 
   #' @param benchmark a data.frame with fourteen columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset`, `is_real`, `k`, `balanced_clusters`,
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset`, `is_real`, `k`, `balanced_clusters`,
   #' `independent_clusters` and `random_state`.
   #' @param metrics a vector of two metrics. 
   #' 
@@ -118,7 +118,7 @@ get_plots.synthetic_benchmark <- function(benchmark) {
   #' Get plots summarizing the benchmark conducted on synthetic datasets.
   #'
   #' @param benchmark a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #' 
   #' @return a named list, with three names: `main_clustering_performance`, `supplementary_clustering_performance`
   #' and `computational_performance`.

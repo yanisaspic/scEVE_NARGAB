@@ -186,8 +186,8 @@ get_summary_plot <- function(records, widths=c(8, 4, 4)) {
                      axis.text.y=ggplot2::element_blank())
     return(barplot)}
   
-  barplot.composition <- get_barplot.composition(tree_data, records$cells)
-  barplot.sizes <- get_barplot.sizes(tree_data, records$cells)
+  barplot.composition <- get_barplot.composition(tree_data, records$samples)
+  barplot.sizes <- get_barplot.sizes(tree_data, records$samples)
   
   composite_plot <- tree_plot +
     remove_y_axis(barplot.composition) +

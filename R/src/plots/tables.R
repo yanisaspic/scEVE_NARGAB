@@ -55,7 +55,7 @@ get_cancer_data <- function(records) {
   clusters <- rownames(records$meta)
   is_leaf <- function(cluster) {!(cluster %in% records$meta$parent)}
   clusters <- clusters[sapply(X=clusters, FUN=is_leaf)]
-  get_cluster_markers <- function(cluster) {rownames(records$markers[records$markers[, cluster] > 0,])}
+  get_cluster_markers <- function(cluster) {rownames(records$features[records$features[, cluster] > 0,])}
   cluster_markers <- sapply(X=clusters, FUN=get_cluster_markers)
   cluster_markers <- tibble::enframe(cluster_markers, name="cluster", value="symbol") %>%
     tidyr::unnest(symbol)
@@ -116,15 +116,15 @@ get_leftout_data <- function(benchmarks) {
   #' Get a data.frame associating RSEC and scEVE to their missing cells.
   #' 
   #' @param benchmarks a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #'
   #' @return a data.frame with three columns: `method`, `dataset` and `missing_cells`.
   #' 
   benchmarks <- benchmarks[benchmarks$method %in% c("ground_truth", "RSEC*", "scEVE*"), ]
   leftout_data <- benchmarks %>%
     dplyr::group_by(dataset) %>%
-    dplyr::mutate(ref=n_cells[method=="ground_truth"]) %>%
-    dplyr::mutate(percent=100*n_cells/ref)
+    dplyr::mutate(ref=n_samples[method=="ground_truth"]) %>%
+    dplyr::mutate(percent=100*n_samples/ref)
   leftout_data <- leftout_data[leftout_data$method %in% c("RSEC*", "scEVE*"),
                                c("method", "dataset", "percent")]
   

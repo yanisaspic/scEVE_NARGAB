@@ -30,7 +30,7 @@ get_benchmarks <- function(path) {
   #' @param path a path where benchmark results are stored.
   #'
   #' @return a data.frame with ten columns: `method`, `time (s)`, `peak_memory_usage (Mb)`,
-  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_cells`, `dataset` and `is_real`.
+  #' `ARI`, `NMI`, `nPurity`, `SI`, `n_samples`, `dataset` and `is_real`.
   #'
   get_benchmark.dataset <- function(file) {
     tmp <- strsplit(file, split="/", fixed=TRUE)[[1]]

@@ -52,7 +52,7 @@ get_lineplots <- function(benchmark, metric, draw_legend) {
   # ____________________________________________________________________________
   
   plot <- ggplot2::ggplot(tmp, ggplot2::aes(x=k, y=y)) +
-    ggplot2::geom_point(ggplot2::aes(color=method, shape=method)) +
+    ggplot2::geom_point(ggplot2::aes(color=method, shape=method), size=3) +
     ggplot2::geom_line(ggplot2::aes(color=method, linetype=method)) +
     ggplot2::geom_errorbar(ggplot2::aes(ymin=y-se, ymax=y+se, color=method), width=0.2) +
     ggplot2::facet_grid(balanced_clusters~independent_clusters, switch="y",
@@ -67,7 +67,7 @@ get_lineplots <- function(benchmark, metric, draw_legend) {
   plot <- plot +
     ggplot2::theme_bw() +
     ggplot2::theme(strip.background=ggplot2::element_rect(fill="#333333"),
-                   strip.text=ggplot2::element_text(color="white"),
+                   strip.text=ggplot2::element_text(color="white", face="bold"),
                    panel.background=ggplot2::element_rect(fill="#ebebeb"),
                    panel.grid.major=ggplot2::element_line(colour="white"),
                    legend.position="bottom", legend.text=ggplot2::element_text(size=10),

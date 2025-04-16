@@ -37,12 +37,12 @@ Using a server with SLURM, our experiments can be replicated by running the scri
 
 ```bash
 sbatch ./sbatch/run_scEVE.sbatch
-sbatch ./sbatch/benchmark.base_methods.sbatch
-sbatch ./sbatch/benchmark.RSEC.sbatch
-sbatch ./sbatch/benchmark.SAFE.sbatch
-sbatch ./sbatch/benchmark.SAME.sbatch
-sbatch ./sbatch/benchmark.scEVE.sbatch
-sbatch ./sbatch/benchmark.synthetic.sbatch
+sbatch ./sbatch/run_benchmark.base_methods.sbatch
+sbatch ./sbatch/run_benchmark.RSEC.sbatch
+sbatch ./sbatch/run_benchmark.SAFE.sbatch
+sbatch ./sbatch/run_benchmark.SAME.sbatch
+sbatch ./sbatch/run_benchmark.scEVE.sbatch
+sbatch ./sbatch/run_benchmark.synthetic.sbatch
 ```
 
 Note that a hidden scripts `./run/.run_benchmark.sbatch` is also available to benchmark a specific method on an input dataset.

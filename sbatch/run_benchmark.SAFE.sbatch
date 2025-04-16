@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=128G
-#SBATCH --array=0-2%1
+#SBATCH --array=0-14%1
 #SBATCH --time=24:00:00
 #SBATCH --exclude=cpu-node-17,cpu-node-91
 

@@ -8,7 +8,7 @@ if (!require("devtools")) install.packages("devtools", dependencies=TRUE, repos=
 
 #______________ packageVersion("feve") = 1.0
 if (!require("presto")) devtools::install_github('immunogenomics/presto')
-if (!require("feve")) devtools::install_github("yanisaspic/feve")
+if (!require("feve")) devtools::install_github("yanisaspic/feve@7b80758")
 
 #_____________ packageVersion("SAFEclustering") = 2.0
 if (!require("SAFEclustering")) {

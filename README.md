@@ -1,7 +1,7 @@
 # Capitalizing on the differences of prediction between multiple scRNA-seq clustering methods.
 
 [![fEVE](https://img.shields.io/badge/fEVE-1.0-blue.svg)](https://github.com/yanisaspic/fEVE/tree/main)
-[![R](https://img.shields.io/badge/R-4.3.1-blue.svg)](https://cran.r-project.org/)
+[![R](https://img.shields.io/badge/R-4.3.1-white.svg)](https://cran.r-project.org/)
 [![Linux](https://img.shields.io/badge/Ubuntu-20.04.6-white.svg)](https://ubuntu.com/)
 [![bash](https://img.shields.io/badge/bash-5.0.17-white.svg)](https://www.gnu.org/software/bash/)
 
